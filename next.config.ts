@@ -6,15 +6,18 @@ const nextConfig: NextConfig = {
 
   // Configure image domains for external images
   images: {
-    domains: [
-      "localhost",
-      "lh3.googleusercontent.com", // Google profile images
-      "avatars.githubusercontent.com", // GitHub avatars
-    ],
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "**",
+        hostname: "localhost",
+      },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+      },
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
       },
     ],
   },

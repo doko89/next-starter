@@ -6,10 +6,6 @@ import { db } from "./db";
 import { users, accounts, sessions, verificationTokens } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
-import { initializeRedis } from "./redis";
-
-// Initialize Redis connection
-initializeRedis();
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: DrizzleAdapter(db) as any,

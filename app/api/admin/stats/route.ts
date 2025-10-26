@@ -3,7 +3,6 @@ import { auth } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { users, accounts, sessions } from "@/db/schema"
 import { eq, gte, count } from "drizzle-orm"
-import { cache } from "@/lib/redis"
 
 interface AdminStats {
   totalUsers: number;
@@ -26,16 +25,23 @@ export async function GET() {
       )
     }
 
-    // Try to get stats from cache first
-    const cacheKey = "admin:stats";
-    const cachedStats = await cache.get<AdminStats>(cacheKey);
+    // Try to get stats from cache if Redis is available
+    let cachedStats: AdminStats | null = null;
+    if (process.env.REDIS_URL) {
+      try {
+        const { cache } = await import("@/lib/redis");
+        cachedStats = await cache.get<AdminStats>("admin:stats");
 
-    if (cachedStats) {
-      return NextResponse.json({
-        ...cachedStats,
-        cached: true,
-        timestamp: new Date().toISOString(),
-      });
+        if (cachedStats) {
+          return NextResponse.json({
+            ...cachedStats,
+            cached: true,
+            timestamp: new Date().toISOString(),
+          });
+        }
+      } catch (error) {
+        console.warn("Redis cache not available, proceeding without cache:", error);
+      }
     }
 
     // Calculate date 7 days ago
@@ -83,8 +89,15 @@ export async function GET() {
       })),
     };
 
-    // Cache the stats for 5 minutes (300 seconds)
-    await cache.set(cacheKey, stats, 300);
+    // Cache the stats for 5 minutes (300 seconds) if Redis is available
+    if (process.env.REDIS_URL) {
+      try {
+        const { cache } = await import("@/lib/redis");
+        await cache.set("admin:stats", stats, 300);
+      } catch (error) {
+        console.warn("Failed to cache stats:", error);
+      }
+    }
 
     return NextResponse.json({
       ...stats,
@@ -111,9 +124,15 @@ export async function DELETE() {
       )
     }
 
-    // Clear the stats cache
-    const cacheKey = "admin:stats";
-    await cache.del(cacheKey);
+    // Clear the stats cache if Redis is available
+    if (process.env.REDIS_URL) {
+      try {
+        const { cache } = await import("@/lib/redis");
+        await cache.del("admin:stats");
+      } catch (error) {
+        console.warn("Failed to clear cache:", error);
+      }
+    }
 
     return NextResponse.json({
       success: true,
