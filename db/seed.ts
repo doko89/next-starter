@@ -211,8 +211,9 @@ export async function resetAdminPassword(newPassword?: string) {
         updatedAt: new Date()
       })
       .where(eq(users.email, adminEmail))
+      .returning({ id: users.id })
 
-    if (result.rowCount > 0) {
+    if (result.length > 0) {
       console.log(`✅ Password reset for admin: ${adminEmail}`)
       console.log(`   New password: ${password}`)
       return true
