@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { toast } from "sonner"
 
 export default function ResetPasswordPage() {
@@ -38,7 +37,7 @@ export default function ResetPasswordPage() {
       } else {
         toast.error(data.message || "Failed to send reset instructions")
       }
-    } catch (error) {
+    } catch {
       toast.error("An error occurred while requesting password reset")
     } finally {
       setIsLoading(false)
@@ -82,7 +81,7 @@ export default function ResetPasswordPage() {
       } else {
         toast.error(data.message || "Failed to reset password")
       }
-    } catch (error) {
+    } catch {
       toast.error("An error occurred while resetting password")
     } finally {
       setIsLoading(false)

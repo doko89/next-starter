@@ -5,12 +5,9 @@ import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Separator } from "@/components/ui/separator"
 import { ProfileMenu } from "@/components/profile-menu/profile-menu"
 import {
   LayoutDashboard,
-  Settings,
-  Users,
   Menu,
   X
 } from "lucide-react"

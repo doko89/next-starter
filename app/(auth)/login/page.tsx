@@ -52,7 +52,7 @@ function LoginForm() {
           router.push(callbackUrl)
         }
       }
-    } catch (error) {
+    } catch {
       toast.error("An error occurred during login")
     } finally {
       setIsLoading(false)
@@ -63,7 +63,7 @@ function LoginForm() {
     setIsLoading(true)
     try {
       await signIn("google", { callbackUrl })
-    } catch (error) {
+    } catch {
       toast.error("An error occurred during Google sign in")
     } finally {
       setIsLoading(false)

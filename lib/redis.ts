@@ -11,7 +11,6 @@ export function getRedisClient(): RedisClientType | null {
         url: process.env.REDIS_URL,
         socket: {
           connectTimeout: 5000,
-          lazyConnect: true,
         },
       });
 
@@ -154,7 +153,7 @@ export class RedisCache {
     try {
       const serializedValue = JSON.stringify(value);
       const result = await this.client.setNX(key, serializedValue);
-      return result;
+      return result === 1;
     } catch (error) {
       console.error("Redis setnx error:", error);
       return false;

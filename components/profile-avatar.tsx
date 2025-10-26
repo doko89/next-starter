@@ -58,7 +58,7 @@ export default function ProfileAvatar() {
       } else {
         toast.error(data.error || "Failed to update avatar")
       }
-    } catch (error) {
+    } catch {
       toast.error("An error occurred while uploading avatar")
     } finally {
       setIsLoading(false)
@@ -94,7 +94,7 @@ export default function ProfileAvatar() {
       } else {
         toast.error(data.error || "Failed to remove avatar")
       }
-    } catch (error) {
+    } catch {
       toast.error("An error occurred while removing avatar")
     } finally {
       setIsLoading(false)

@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { CalendarDays, Mail, User } from "lucide-react"
 import Link from "next/link"
-import { formatDateTime } from "@/lib/utils"
 
 export default function UserDashboard() {
   const { data: session } = useSession()
@@ -21,7 +20,7 @@ export default function UserDashboard() {
       <div>
         <h1 className="text-3xl font-bold">User Dashboard</h1>
         <p className="text-muted-foreground">
-          Welcome back, {user.name}! Here's an overview of your account.
+          Welcome back, {user.name}! Here&apos;s an overview of your account.
         </p>
       </div>
 

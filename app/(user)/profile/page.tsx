@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useSession } from "next-auth/react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -49,7 +49,7 @@ export default function UserProfile() {
       } else {
         toast.error(data.message || "Failed to update profile")
       }
-    } catch (error) {
+    } catch {
       toast.error("An error occurred while updating your profile")
     } finally {
       setIsAccountLoading(false)
@@ -93,7 +93,7 @@ export default function UserProfile() {
       } else {
         toast.error(data.message || "Failed to update password")
       }
-    } catch (error) {
+    } catch {
       toast.error("An error occurred while updating your password")
     } finally {
       setIsPasswordLoading(false)

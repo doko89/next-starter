@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { users } from "@/db/schema";
-import { eq } from "drizzle-orm";
 
 interface HealthCheckResponse {
   status: "healthy" | "unhealthy";
@@ -139,7 +138,7 @@ export async function HEAD(): Promise<Response> {
         "Cache-Control": "no-cache, no-store, must-revalidate",
       }
     });
-  } catch (error) {
+  } catch {
     return new Response(null, { status: 503 });
   }
 }

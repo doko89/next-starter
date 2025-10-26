@@ -80,7 +80,7 @@ export default function RegisterPage() {
       } else {
         toast.error(data.message || "Registration failed")
       }
-    } catch (error) {
+    } catch {
       toast.error("An error occurred during registration")
     } finally {
       setIsLoading(false)
@@ -91,7 +91,7 @@ export default function RegisterPage() {
     setIsLoading(true)
     try {
       await signIn("google", { callbackUrl: "/dashboard" })
-    } catch (error) {
+    } catch {
       toast.error("An error occurred during Google sign up")
     } finally {
       setIsLoading(false)

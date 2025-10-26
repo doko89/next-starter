@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Users, Settings, Shield, CalendarDays, Mail, User } from "lucide-react"
 import Link from "next/link"
-import { formatDateTime } from "@/lib/utils"
 import { useState, useEffect } from "react"
 
 interface UserStats {
@@ -54,7 +53,7 @@ export default function AdminDashboard() {
       <div>
         <h1 className="text-3xl font-bold">Admin Dashboard</h1>
         <p className="text-muted-foreground">
-          Welcome back, {user.name}! Here's an overview of your system.
+          Welcome back, {user.name}! Here&apos;s an overview of your system.
         </p>
       </div>
 
